@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Platforms</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="top-nav">
+  <div class="nav-left">
+    <button class="nav-icon" aria-hidden="true" title="Platforms">🖥️</button>
+    <div class="user-greeting">Platforms</div>
+  </div>
+  <div class="nav-right">
+    <button class="nav-icon" title="Games" onclick="go('games.html')" aria-label="Games">🎮</button>
+    <button class="nav-icon" title="Favorites" onclick="go('favorites.html')" aria-label="Favorites">★</button>
+    <button class="nav-icon" title="Reviews" onclick="go('reviews.html')" aria-label="Reviews">✎</button>
+    <button class="nav-icon" title="Home" onclick="go('main.html')" aria-label="Home">⌂</button>
+  </div>
+</div>
+
+<div class="games-wrap">
+  <div id="platformsList" class="game-grid"></div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/platforms.js"></script>
+<script>
+function go(page) { window.location = page; }
+</script>
+</body>
+</html>
