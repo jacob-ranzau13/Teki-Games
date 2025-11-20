@@ -14,6 +14,18 @@
 
   <button onclick="login()" class="tron-button">Login</button>
 
+  <button onclick="showRegister()" class="tron-button secondary" style="margin-top:10px;">Register</button>
+
+  <div id="register-modal" class="register-modal hidden">
+    <input id="reg-username" class="tron-input" placeholder="Username">
+    <input id="reg-email" class="tron-input" placeholder="Email">
+    <input id="reg-password" type="password" class="tron-input" placeholder="Password">
+    <button onclick="register()" id="create-account" class="tron-button">Create Account</button>
+    <button onclick="hideRegister()" class="tron-button secondary" style="margin-top:5px;">Cancel</button>
+    <p id="register-error" style="color: red; text-align: center;"></p>
+    <p id="register-success" style="color: #00ff99; text-align: center;"></p>
+  </div>
+
   <p id="error" style="color: red; text-align: center;"></p>
 </div>
 

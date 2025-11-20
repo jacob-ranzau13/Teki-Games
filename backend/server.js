@@ -37,7 +37,7 @@ app.post("/auth/login", async (req, res) => {
     const match = await bcrypt.compare(password, row.password_hash);
     if (!match) return res.status(401).json({ success: false, error: "Invalid login" });
 
-    // Don't return password_hash in response
+    
     const { password_hash, ...user } = row;
     res.json({ success: true, user });
   } catch (err) {
@@ -148,4 +148,28 @@ app.get("/", (_, res) => res.json({ status: "Backend running" }));
 const PORT = 4000;
 app.listen(PORT, () => {
   console.log("Backend running at http://localhost:" + PORT);
+});
+
+app.post("/auth/register", async (req, res) => {
+  const { email, username, password } = req.body;
+  if (!email || !username || !password) {
+    return res.status(400).json({ success: false, error: "Missing required fields" });
+  }
+  try {
+    const existing = await db.get("SELECT user_id FROM Users WHERE email = ?", email);
+    if (existing) {
+      return res.status(409).json({ success: false, error: "Email already registered" });
+    }
+    const password_hash = await bcrypt.hash(password, 10);
+    const result = await db.run(
+      "INSERT INTO Users (username, email, password_hash) VALUES (?, ?, ?)",
+      username,
+      email,
+      password_hash
+    );
+    res.json({ success: true, user_id: result.lastID });
+  } catch (err) {
+    console.error("Register error:", err);
+    res.status(500).json({ success: false, error: "Server error" });
+  }
 });

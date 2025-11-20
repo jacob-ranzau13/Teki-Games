@@ -6,8 +6,6 @@ body {
   padding: 0;
 }
 
-/* Make widths include padding and border so 100% matches the container
-   and inputs/buttons align exactly */
 *, *::before, *::after {
   box-sizing: border-box;
 }
@@ -60,3 +58,62 @@ body {
   padding: 8px 0;
   margin: 5px 0;
 }
+
+.hidden { display: none !important; }
+
+.register-modal {
+  margin-top: 20px;
+  padding: 14px;
+  border: 1px solid #00d9ff;
+  border-radius: 8px;
+  background: #001223;
+  box-shadow: 0 0 10px rgba(0, 170, 255, 0.08);
+}
+
+
+.tron-button.secondary {
+  background: #003d5c;
+  color: #00d9ff;
+  border: 1px solid transparent;
+}
+
+.top-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  max-width: 900px;
+  margin: 20px auto 0;
+}
+
+.nav-left { display:flex; align-items:center; gap:12px; }
+.nav-right { display:flex; align-items:center; gap:8px; }
+
+.nav-icon {
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #00d9ff;
+}
+
+.feed {
+  max-width: 900px;
+  margin: 16px auto;
+  padding: 16px;
+  background: #000b14;
+  border: 1px solid #001b2b;
+  border-radius: 8px;
+}
+
+.post {
+  padding: 12px;
+  border-bottom: 1px solid #001b2b;
+  color: #cfefff;
+}
+
+.user-greeting { color: #00d9ff; font-weight: bold; }
