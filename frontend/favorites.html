@@ -1,41 +1,36 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Reviews</title>
+  <title>Favorites</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
-</div>
 <div class="top-nav">
   <div class="nav-left">
-    <div class="user-greeting">Reviews</div>
+    <div class="user-greeting">Favorites</div>
   </div>
   <div class="nav-right">
     <button class="nav-icon" title="Home" onclick="go('main.html')" aria-label="Home">⌂</button>
-    <button class="nav-icon" title="Add Review" onclick="showAddForm()" aria-label="Add Review">✎</button>
+    <button class="nav-icon" title="Add Favorite" onclick="showAddForm()" aria-label="Add Favorite">★</button>
     <button class="nav-icon" title="Games" onclick="go('games.html')" aria-label="Games">🎮</button>
   </div>
 </div>
 
 <div class="games-wrap">
   <div id="add-form" class="register-modal hidden">
-    <label for="review-game" style="color:#00d9ff">Select Game</label>
-    <select id="review-game" class="tron-input" style="margin-bottom:8px;"></select>
-    <input id="rating" class="tron-input" placeholder="Rating (1-10)">
-    <textarea id="review_text" class="tron-input" placeholder="Review Text" style="height:100px;"></textarea>
+    <select id="favorite-game" class="tron-input"></select>
     <div style="display:flex;gap:8px;margin-top:8px;">
-      <button onclick="addReview()" class="tron-button">Create Review</button>
+      <button onclick="addFavorite()" class="tron-button">Add Favorite</button>
       <button onclick="hideAddForm()" class="tron-button secondary">Cancel</button>
     </div>
-    <p id="review-error" style="color:red;text-align:center"></p>
+    <div id="fav-error" style="color:#ff6b6b;margin-top:8px"></div>
   </div>
 
-  <div id="reviewsList" class="game-grid"></div>
+  <div id="favoritesList" class="game-grid" style="margin-top:12px"></div>
 </div>
 
 <script src="js/api.js"></script>
-<script src="js/reviews.js"></script>
+<script src="js/favorites.js"></script>
 <script>
 function go(page) { window.location = page; }
 function logout() { localStorage.removeItem('user'); window.location = 'index.html'; }

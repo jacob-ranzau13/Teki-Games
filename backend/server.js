@@ -88,8 +88,6 @@ app.delete("/games/:id", async (req, res) => {
   res.json({ success: true });
 });
 
-
-// Get reviews for a specific game (joined with reviewer username)
 app.get("/reviews/:gameId", async (req, res) => {
   const rows = await db.all(
     `SELECT r.review_id, r.user_id, u.username, r.game_id, r.rating, r.review_text
@@ -102,7 +100,6 @@ app.get("/reviews/:gameId", async (req, res) => {
   res.json(rows);
 });
 
-// Get all reviews (feed) with reviewer username
 app.get("/reviews", async (_, res) => {
   const rows = await db.all(
     `SELECT r.review_id, r.user_id, u.username, r.game_id, r.rating, r.review_text

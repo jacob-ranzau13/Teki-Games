@@ -73,7 +73,6 @@ async function addReview() {
       body: JSON.stringify({ user_id: currentUser.user_id, game_id, rating: Number(rating), review_text })
     });
     if (!res.ok) throw new Error('Failed to post review');
-    // clear and hide form
     document.getElementById('rating').value = '';
     document.getElementById('review_text').value = '';
     hideAddForm();
@@ -94,7 +93,6 @@ async function loadGamesList() {
     const games = await res.json();
     sel.innerHTML = '';
     const q = getQueryParam('gameId');
-    // If no gameId query param, add a placeholder that means "no filter" so default view shows all reviews
     if (!q) {
       const placeholder = document.createElement('option');
       placeholder.value = '';
@@ -111,7 +109,6 @@ async function loadGamesList() {
       o.innerText = `${g.title} (${g.release_year || 'N/A'})`;
       sel.appendChild(o);
     });
-    // if page was opened with gameId, select it and disable the dropdown
     if (q) {
       sel.value = q;
       sel.disabled = true;
@@ -127,7 +124,6 @@ function hideAddForm() { document.getElementById('add-form').classList.add('hidd
 
 document.addEventListener('DOMContentLoaded', async () => {
   await loadGamesList();
-  // when selection changes, reload reviews for that game
   const sel = document.getElementById('review-game');
   if (sel) sel.addEventListener('change', loadReviews);
   await loadReviews();
