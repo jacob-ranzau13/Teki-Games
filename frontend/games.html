@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Games</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="top-nav">
+  <div class="nav-left">
+    <div class="user-greeting">Games</div>
+  </div>
+  <div class="nav-right">
+    <button class="nav-icon" title="Add Game" onclick="showAddForm()" aria-label="Add Game">+</button>
+    <button class="nav-icon" title="Main" onclick="go('main.html')" aria-label="Main">⌂</button>
+  </div>
+</div>
+
+<div class="games-wrap">
+  <div id="add-form" class="register-modal hidden">
+    <input id="title" class="tron-input" placeholder="Title">
+    <input id="genre" class="tron-input" placeholder="Genre">
+    <input id="year" class="tron-input" placeholder="Release Year">
+    <input id="platform" class="tron-input" placeholder="Platform ID">
+    <div style="display:flex;gap:8px;margin-top:8px;">
+      <button onclick="addGame()" class="tron-button">Create Game</button>
+      <button onclick="hideAddForm()" class="tron-button secondary">Cancel</button>
+    </div>
+  </div>
+
+  <div id="list" class="game-grid"></div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/games.js"></script>
+<script>
+function go(page) { window.location = page; }
+function logout() { localStorage.removeItem('user'); window.location = 'index.html'; }
+</script>
+</body>
+</html>
