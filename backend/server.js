@@ -89,10 +89,26 @@ app.delete("/games/:id", async (req, res) => {
 });
 
 
+// Get reviews for a specific game (joined with reviewer username)
 app.get("/reviews/:gameId", async (req, res) => {
   const rows = await db.all(
-    "SELECT * FROM Reviews WHERE game_id = ?",
+    `SELECT r.review_id, r.user_id, u.username, r.game_id, r.rating, r.review_text
+     FROM Reviews r
+     LEFT JOIN Users u ON r.user_id = u.user_id
+     WHERE r.game_id = ?
+     ORDER BY r.review_id DESC`,
     req.params.gameId
+  );
+  res.json(rows);
+});
+
+// Get all reviews (feed) with reviewer username
+app.get("/reviews", async (_, res) => {
+  const rows = await db.all(
+    `SELECT r.review_id, r.user_id, u.username, r.game_id, r.rating, r.review_text
+     FROM Reviews r
+     LEFT JOIN Users u ON r.user_id = u.user_id
+     ORDER BY r.review_id DESC`
   );
   res.json(rows);
 });
