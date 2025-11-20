@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Teki-Games</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="tron-box">
+  <h2 class="tron-title">Teki-Games Main Menu</h2>
+
+  <button class="tron-button" onclick="go('games.html')">Games</button>
+  <button class="tron-button" onclick="go('reviews.html')">Reviews</button>
+  <button class="tron-button" onclick="go('favorites.html')">Favorites</button>
+  <button class="tron-button" onclick="go('platforms.html')">Platforms</button>
+  <button class="tron-button" onclick="go('stats.html')">Stats</button>
+  <button class="tron-button" onclick="logout()">Logout</button>
+</div>
+
+<script>
+function go(page) { window.location = page; }
+function logout() {
+  localStorage.removeItem("user");
+  window.location = "index.html";
+}
+</script>
+</body>
+</html>

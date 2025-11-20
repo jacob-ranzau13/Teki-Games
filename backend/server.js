@@ -3,6 +3,7 @@ import cors from "cors";
 import sqlite3 from "sqlite3";
 import { open } from "sqlite";
 import path from "path";
+import bcrypt from "bcrypt";
 
 const app = express();
 app.use(cors());
@@ -26,16 +27,23 @@ await initDB();
 
 app.post("/auth/login", async (req, res) => {
   const { email, password } = req.body;
+  try {
+    const row = await db.get(
+      "SELECT user_id, username, email, password_hash FROM Users WHERE email = ?",
+      email
+    );
+    if (!row) return res.status(401).json({ success: false, error: "Invalid login" });
 
-  const user = await db.get(
-    "SELECT user_id, username, email FROM Users WHERE email = ? AND password = ?",
-    email,
-    password
-  );
+    const match = await bcrypt.compare(password, row.password_hash);
+    if (!match) return res.status(401).json({ success: false, error: "Invalid login" });
 
-  if (!user) return res.status(401).json({ success: false, error: "Invalid login" });
-
-  res.json({ success: true, user });
+    // Don't return password_hash in response
+    const { password_hash, ...user } = row;
+    res.json({ success: true, user });
+  } catch (err) {
+    console.error("Login error:", err);
+    res.status(500).json({ success: false, error: "Server error" });
+  }
 });
 
 
