@@ -1,0 +1,13 @@
+{
+  "name": "gamedb-frontend",
+  "version": "1.0.0",
+  "description": "Frontend for Teki games project using HTML/CSS/JS",
+  "author": "Your Name",
+  "private": true,
+  "scripts": {
+    "start": "npx http-server -p 3000"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
