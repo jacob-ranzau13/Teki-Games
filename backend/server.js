@@ -8,9 +8,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// ----------------------
-// DATABASE
-// ----------------------
 let db;
 
 async function initDB() {
