@@ -13,7 +13,7 @@ let db;
 
 async function initDB() {
   try {
-    const dbPath = path.resolve("C:/Users/ranza/SQL-Lite/Databases/Teki-games.db");
+    const dbPath = path.resolve("C:/Users/ranza/SQLite/Databases/Teki-Games.db");
     db = await open({
       filename: dbPath,
       driver: sqlite3.Database
