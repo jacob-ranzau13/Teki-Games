@@ -147,6 +147,76 @@ app.get("/platforms", async (_, res) => {
   res.json(rows);
 });
 
+app.get('/stats/most-popular-games', async (_, res) => {
+  try {
+    const limit = 6;
+    const rows = await db.all(
+      `SELECT g.game_id, g.title, COALESCE(COUNT(r.review_id),0) AS review_count, ROUND(AVG(r.rating),2) AS avg_rating
+       FROM Games g
+       LEFT JOIN Reviews r ON g.game_id = r.game_id
+       GROUP BY g.game_id
+       ORDER BY review_count DESC
+       LIMIT ${limit}`
+    );
+    res.json(rows);
+  } catch (err) {
+    console.error('Error fetching most popular games', err);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+app.get('/stats/most-favorited', async (_, res) => {
+  try {
+    const limit = 6;
+    const rows = await db.all(
+      `SELECT g.game_id, g.title, COALESCE(COUNT(f.favorite_id),0) AS favorite_count
+       FROM Games g
+       LEFT JOIN Favorites f ON g.game_id = f.game_id
+       GROUP BY g.game_id
+       ORDER BY favorite_count DESC
+       LIMIT ${limit}`
+    );
+    res.json(rows);
+  } catch (err) {
+    console.error('Error fetching most favorited games', err);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+app.get('/stats/top-reviewers', async (_, res) => {
+  try {
+    const limit = 6;
+    const rows = await db.all(
+      `SELECT u.user_id, u.username, COALESCE(COUNT(r.review_id),0) AS review_count
+       FROM Users u
+       LEFT JOIN Reviews r ON u.user_id = r.user_id
+       GROUP BY u.user_id
+       ORDER BY review_count DESC
+       LIMIT ${limit}`
+    );
+    res.json(rows);
+  } catch (err) {
+    console.error('Error fetching top reviewers', err);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+app.get('/stats/platform-game-counts', async (_, res) => {
+  try {
+    const rows = await db.all(
+      `SELECT p.platform_id, p.platform_name, COALESCE(COUNT(g.game_id),0) AS game_count
+       FROM Platforms p
+       LEFT JOIN Games g ON p.platform_id = g.platform_id
+       GROUP BY p.platform_id
+       ORDER BY game_count DESC`
+    );
+    res.json(rows);
+  } catch (err) {
+    console.error('Error fetching platform game counts', err);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
 app.post("/platforms", async (req, res) => {
   const { platform_name } = req.body;
   const result = await db.run(

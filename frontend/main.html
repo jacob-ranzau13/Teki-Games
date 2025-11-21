@@ -23,19 +23,31 @@
     <button class="nav-icon" title="Platforms" onclick="go('platforms.html')" aria-label="Platforms">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2l8 4-8 4L4 6l8-4z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 10l8 4 8-4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 16l8 4 8-4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
-    <button class="nav-icon" title="Stats" onclick="go('stats.html')" aria-label="Stats">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 3v18h18" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 17V9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 17V5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 17v-4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </button>
     <button class="nav-icon" title="Logout" onclick="logout()" aria-label="Logout">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M16 17l5-5-5-5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12H9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 19H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
   </div>
 </div>
 
-<div class="feed">
-  <div class="post"><strong>News Feed:</strong> Welcome to Teki-Games!</div>
-  <div class="post">Latest games and reviews will show up here.</div>
-  <div class="post">You can click the icons above to navigate.</div>
+<div class="dashboard">
+  <div class="dashboard-grid">
+    <div class="card">
+      <h3>Most Popular Games</h3>
+      <canvas id="chart-popular"></canvas>
+    </div>
+    <div class="card">
+      <h3>Most Favorited Games</h3>
+      <canvas id="chart-favorited"></canvas>
+    </div>
+    <div class="card">
+      <h3>Top Reviewers</h3>
+      <canvas id="chart-top-reviewers"></canvas>
+    </div>
+    <div class="card">
+      <h3>Platforms by Game Count</h3>
+      <canvas id="chart-platforms"></canvas>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -52,5 +64,9 @@ document.addEventListener('DOMContentLoaded', () => {
   } catch(e) { console.error('Error parsing user data from localStorage', e); }
 });
 </script>
+<!-- Chart.js + dashboard script -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="js/api.js"></script>
+<script src="js/dashboard.js"></script>
 </body>
 </html>
