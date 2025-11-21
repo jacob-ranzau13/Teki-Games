@@ -23,13 +23,14 @@ async function loadReviews() {
       return;
     }
 
+    const currentUser = (() => { try { return user(); } catch(e){return null;} })();
     reviews.forEach(r => {
       const card = document.createElement('div');
       card.className = 'game-card';
 
-  const meta = document.createElement('div');
-  meta.className = 'meta';
-  meta.innerText = `Rating: ${r.rating} • by ${r.username || ('user ' + r.user_id)}`;
+      const meta = document.createElement('div');
+      meta.className = 'meta';
+      meta.innerText = `Rating: ${r.rating} • by ${r.username || ('user ' + r.user_id)}`;
 
       const body = document.createElement('div');
       body.style.marginTop = '6px';
@@ -37,6 +38,30 @@ async function loadReviews() {
 
       card.appendChild(meta);
       card.appendChild(body);
+
+      // If the logged-in user is the author, show delete button
+      if (currentUser && currentUser.user_id && Number(currentUser.user_id) === Number(r.user_id)) {
+        const actions = document.createElement('div');
+        actions.className = 'actions';
+        const del = document.createElement('button');
+        del.className = 'tron-button secondary';
+        del.style.padding = '6px 8px';
+        del.innerText = 'Delete';
+        del.onclick = async () => {
+          if (!confirm('Delete this review?')) return;
+          try {
+            const res = await fetch(API + '/reviews/' + encodeURIComponent(r.review_id), { method: 'DELETE' });
+            if (!res.ok) throw new Error('Delete failed');
+            await loadReviews();
+          } catch (err) {
+            console.error('delete review error', err);
+            alert('Failed to delete review');
+          }
+        };
+        actions.appendChild(del);
+        card.appendChild(actions);
+      }
+
       list.appendChild(card);
     });
   } catch (err) {

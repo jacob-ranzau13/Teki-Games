@@ -122,6 +122,20 @@ app.post("/reviews", async (req, res) => {
   res.json({ review_id: result.lastID });
 });
 
+app.delete('/reviews/:id', async (req, res) => {
+  try {
+    const result = await db.run('DELETE FROM Reviews WHERE review_id = ?', req.params.id);
+    if (result.changes && result.changes > 0) {
+      res.json({ success: true });
+    } else {
+      res.status(404).json({ success: false, error: 'Review not found' });
+    }
+  } catch (err) {
+    console.error('Error deleting review', err);
+    res.status(500).json({ success: false, error: 'Server error' });
+  }
+});
+
 
 app.get("/favorites/:userId", async (req, res) => {
   const rows = await db.all(
